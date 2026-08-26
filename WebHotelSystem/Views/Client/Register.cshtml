@@ -1,0 +1,29 @@
+@model WebHotelSystem.ViewModels.RegisterViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>title</title>
+</head>
+<body>
+<div>
+    <form asp-action="Register" method="post">
+        @Html.AntiForgeryToken()
+        <input asp-for="ClientName" type="text" placeholder="Enter your name">
+        @* <span asp-validation-for="ClientName" class="text-danger"></span> <br> *@
+
+        <input asp-for="PhoneNumber" type="text" placeholder="Enter your phone number"></input>
+        @* <span asp-validation-for="PhoneNumber" class="text-danger"></span> <br> *@
+
+        <input asp-for="Email" type="text" placeholder="Enter your email"></input>
+        @* <span asp-validation-for="Email" class="text-danger"></span> *@
+
+        <input asp-for="GuestCount" type="text">
+
+        <button>Send</button>
+
+    </form>
+    
+</div>
+</body>
+</html>

@@ -16,6 +16,8 @@ public partial class HotelDbContext : DbContext
 
     public virtual DbSet<Booking> Bookings { get; set; }
 
+    public virtual DbSet<Client> Clients { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Apartment>(entity =>
@@ -74,6 +76,43 @@ public partial class HotelDbContext : DbContext
             entity.HasOne(d => d.AppBook).WithMany(p => p.Bookings)
                 .HasForeignKey(d => d.AppBookId)
                 .HasConstraintName("bookings_app_book_id_fkey");
+        });
+
+        modelBuilder.Entity<Client>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("clients_pkey");
+
+            entity.ToTable("clients");
+
+            entity.HasIndex(e => e.Email, "clients_email_key").IsUnique();
+
+            entity.HasIndex(e => e.PhoneNumber, "clients_phone_number_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.ClientName)
+                .HasMaxLength(64)
+                .HasColumnName("client_name");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_at");
+            entity.Property(e => e.Email)
+                .HasMaxLength(256)
+                .HasColumnName("email");
+            entity.Property(e => e.GuestCount)
+                .HasDefaultValue((short)1)
+                .HasColumnName("guest_count");
+            entity.Property(e => e.PhoneNumber)
+                .HasMaxLength(16)
+                .HasColumnName("phone_number");
+            entity.Property(e => e.RegStatus)
+                .HasMaxLength(16)
+                .HasDefaultValueSql("'unregistred'::character varying")
+                .HasColumnName("reg_status");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("updated_at");
         });
 
         OnModelCreatingPartial(modelBuilder);

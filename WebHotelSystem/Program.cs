@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebHotelSystem.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,3 +33,6 @@ app.MapControllerRoute(
 
 
 app.Run();
+
+
+//TODO: AppADD system (same as clients)

@@ -38,7 +38,7 @@ public class ClientController : Controller
 
         if (_dbContext.Clients.Any(client => client.PhoneNumber == model.PhoneNumber))
         {
-            ModelState.AddModelError("Email", "Email is alreaty taken");
+            ModelState.AddModelError("Phone number", "Phone number is alreaty taken");
             return View(model);
         }
 

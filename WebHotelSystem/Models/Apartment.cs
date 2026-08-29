@@ -10,6 +10,8 @@ public partial class Apartment
     public short AppNumber { get; set; }
 
     public short Rooms { get; set; }
+    
+    public short Capacity { get; set; } //max amount of guests
 
     public bool? IsBalcon { get; set; }
 

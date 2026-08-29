@@ -10,11 +10,12 @@ public class RegisterViewModel
     public string ClientName { get; set; } = null!; 
     
     [Required]
-    [Phone(ErrorMessage = "")]
+    [Phone(ErrorMessage = "phone number should be no longer then 12 symbols(+ isnt included)")]
+    [MaxLength(12)]
     public string PhoneNumber { get; set; } = null!;
     
     [Required]
-    [EmailAddress(ErrorMessage = "")]
+    [EmailAddress(ErrorMessage = "email must contain '@' symbol ")]
     public string Email { get; set; } = null!;
     
     public short? GuestCount { get; set; }

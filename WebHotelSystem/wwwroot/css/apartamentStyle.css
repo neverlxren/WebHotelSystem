@@ -1,0 +1,405 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    color: #20232a;
+    background: linear-gradient(135deg, #f8faf8 0%, #f5f6f3 56%, #edf3ee 100%);
+    font-family: "DM Sans", sans-serif;
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+}
+
+.page-shell {
+    width: min(1120px, calc(100% - 48px));
+    margin: 0 auto;
+    padding: 28px 0 64px;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: #20232a;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.brand-mark {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border-radius: 11px;
+    color: #fff;
+    background: #20232a;
+    font-family: "Playfair Display", serif;
+    font-size: 20px;
+}
+
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon-button,
+.profile {
+    border: 1px solid #e8eae7;
+    background: #fff;
+}
+
+.icon-button {
+    position: relative;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    color: #43464c;
+    font-size: 23px;
+    line-height: 1;
+    transform: rotate(-25deg);
+}
+
+.notification-dot {
+    position: absolute;
+    top: 9px;
+    right: 10px;
+    width: 6px;
+    height: 6px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    background: #ef5a62;
+}
+
+.profile {
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 50%;
+    color: #fff;
+    background: #d88f63;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.hero {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    padding: 72px 0 38px;
+}
+
+.eyebrow {
+    margin: 0 0 9px;
+    color: #809382;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+h1,
+h2 {
+    margin: 0;
+    font-family: "Playfair Display", serif;
+    letter-spacing: -1px;
+}
+
+h1 {
+    font-size: 48px;
+    line-height: 1;
+}
+
+.subtitle {
+    margin: 13px 0 0;
+    color: #777b85;
+    font-size: 15px;
+}
+
+.add-button {
+    padding: 13px 18px;
+    border: 0;
+    border-radius: 12px;
+    color: #fff;
+    background: #20232a;
+    box-shadow: 0 7px 18px rgba(29, 34, 35, 0.12);
+    font-weight: 600;
+}
+
+.add-button span {
+    margin-right: 7px;
+    font-size: 19px;
+    vertical-align: -1px;
+}
+
+.summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.summary article {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-height: 82px;
+    padding: 16px 20px;
+    border: 1px solid #e8eae7;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.72);
+}
+
+.status-dot {
+    flex: 0 0 auto;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.025);
+}
+
+.available {
+    background: #38bf70;
+}
+
+.cleaning {
+    background: #f2a329;
+}
+
+.occupied {
+    background: #ef5a62;
+}
+
+.summary strong,
+.summary span {
+    display: block;
+}
+
+.summary strong {
+    font-size: 20px;
+    letter-spacing: 0;
+}
+
+.summary div span {
+    margin-top: 1px;
+    color: #777b85;
+    font-size: 13px;
+}
+
+.apartments-panel {
+    padding: 30px;
+    border: 1px solid #e8eae7;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 18px 60px rgba(30, 46, 35, 0.06);
+}
+
+.panel-heading {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    margin-bottom: 28px;
+}
+
+.panel-heading h2 {
+    font-size: 27px;
+}
+
+.panel-heading p {
+    margin: 5px 0 0;
+    color: #777b85;
+    font-size: 13px;
+}
+
+.filter-button {
+    padding: 9px 12px;
+    border: 1px solid #e8eae7;
+    border-radius: 9px;
+    color: #555b62;
+    background: #fff;
+    font-size: 13px;
+}
+
+.filter-button span {
+    margin-left: 5px;
+}
+
+.apartment-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.apartment-card {
+    position: relative;
+    min-height: 145px;
+    overflow: hidden;
+    padding: 21px;
+    border: 1px solid #e9ebe9;
+    border-radius: 16px;
+    background: #fff;
+    text-align: left;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.apartment-card:hover {
+    z-index: 1;
+    border-color: #dfe4df;
+    box-shadow: 0 12px 22px rgba(29, 45, 34, 0.09);
+    transform: translateY(-4px);
+}
+
+.apartment-card:focus-visible {
+    outline: 3px solid #b8dcbf;
+    outline-offset: 2px;
+}
+
+.apartment-card summary {
+    display: block;
+    min-height: 101px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.apartment-card summary::-webkit-details-marker {
+    display: none;
+}
+
+.apartment-card[open] summary {
+    min-height: auto;
+}
+
+.apartment-card p {
+    display: none;
+    margin: 12px 0 0;
+    padding-top: 10px;
+    border-top: 1px solid #e8eae7;
+    color: #777b85;
+    font-size: 12px;
+}
+
+.apartment-card[open] p {
+    display: block;
+}
+
+.room-number {
+    display: block;
+    font-family: "Playfair Display", serif;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.guest-count {
+    display: block;
+    margin-top: 8px;
+    color: #8c9198;
+    font-size: 12px;
+}
+
+.room-status {
+    position: absolute;
+    right: 17px;
+    bottom: 17px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #6e747b;
+    font-size: 11px;
+}
+
+.room-status .status-dot {
+    width: 9px;
+    height: 9px;
+}
+
+.room-status.available-text {
+    color: #258a50;
+}
+
+.room-status.cleaning-text {
+    color: #b97710;
+}
+
+.room-status.occupied-text {
+    color: #d6424b;
+}
+
+@media (max-width: 720px) {
+    .page-shell {
+        width: min(100% - 28px, 560px);
+        padding-top: 16px;
+    }
+
+    .hero {
+        flex-direction: column;
+        align-items: start;
+        gap: 23px;
+        padding: 46px 0 28px;
+    }
+
+    h1 {
+        font-size: 40px;
+    }
+
+    .summary {
+        gap: 8px;
+    }
+
+    .summary article {
+        gap: 9px;
+        min-height: 68px;
+        padding: 12px;
+    }
+
+    .summary strong {
+        font-size: 17px;
+    }
+
+    .summary div span {
+        font-size: 11px;
+    }
+
+    .apartments-panel {
+        padding: 20px 14px;
+        border-radius: 19px;
+    }
+
+    .panel-heading {
+        padding: 0 6px;
+    }
+
+    .panel-heading p {
+        max-width: 190px;
+    }
+
+    .filter-button span {
+        display: none;
+    }
+
+    .apartment-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .apartment-card {
+        min-height: 122px;
+        padding: 16px;
+    }
+
+    .room-number {
+        font-size: 27px;
+    }
+}

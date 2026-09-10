@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebHotelSystem.Data;
 using WebHotelSystem.Models;
 
@@ -13,17 +14,41 @@ public class ApartmentController : Controller
     {
         _dbContext = dbContext;
     }
-    
+
     // GET
+    [HttpGet]
     public IActionResult Index()
     {
-        return View(_dbContext.Apartments);
+        return View();
     }
+
+    [HttpGet]
+    public async Task<IActionResult> ApartmentList()
+    {
+        var apartments = await _dbContext.Apartments
+            .ToListAsync();
+
+        return View(apartments);
+    }
+    
 }
 
-
-
-//TODO: create clientDB -> rescaffold -> upload; all 3 DB's functions ++ check scaffold file in obdisidian 
+// [HttpGet]
+    // public async Task<IActionResult> Details(int id)
+    // {
+    //     var apartment = await _dbContext.Apartments
+    //         .FirstOrDefaultAsync(a => a.Id == id);
+    //
+    //     if (apartment == null)
+    //     {
+    //         return NotFound();
+    //     }
+    //
+    //     return View(apartment);
+    // }
+    
+   
+    
 
 // bookings: view all, create booking, update booking, details booking ... etc.
 

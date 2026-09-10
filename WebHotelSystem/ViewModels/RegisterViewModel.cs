@@ -18,6 +18,7 @@ public class RegisterViewModel
     [EmailAddress(ErrorMessage = "email must contain '@' symbol ")]
     public string Email { get; set; } = null!;
     
+    [Range(1, 6)]
     public short? GuestCount { get; set; }
     
 }

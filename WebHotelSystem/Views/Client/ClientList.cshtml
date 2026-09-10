@@ -1,0 +1,82 @@
+@model List<Client>
+
+    @{
+        Layout = "_Layout";
+        ViewData["Title"] = "Клиенты";
+    }
+    
+    <head>
+        <link rel="stylesheet" href="~/css/cl.css" asp-append-version="true" />
+    </head>
+    
+    <main class="clients-page">
+        <section class="clients-header">
+            <div>
+                <p class="clients-label">БАЗА ДАННЫХ ОТЕЛЯ</p>
+                <h1>ClientsDB</h1>
+                <p class="clients-subtitle">Список зарегистрированных и новых клиентов</p>
+            </div>
+    
+            <a class="add-client-button" asp-action="Register">
+                + Добавить клиента
+            </a>
+        </section>
+    
+        <section class="clients-summary">
+            <article>
+                <span class="summary-point registered-point"></span>
+                <div>
+                    <strong>@Model.Count(c => c.RegStatus == "registred")</strong>
+                    <span>Зарегистрировано</span>
+                </div>
+            </article>
+    
+            <article>
+                <span class="summary-point unregistered-point"></span>
+                <div>
+                    <strong>@Model.Count(c => c.RegStatus != "registred")</strong>
+                    <span>Не зарегистрировано</span>
+                </div>
+            </article>
+    
+            <article>
+                <span class="summary-point total-point"></span>
+                <div>
+                    <strong>@Model.Count</strong>
+                    <span>Всего клиентов</span>
+                </div>
+            </article>
+        </section>
+    
+        <section class="clients-panel">
+            <div class="clients-panel-header">
+                <div>
+                    <h2>Клиенты</h2>
+                    <p>Статус регистрации каждого гостя</p>
+                </div>
+            </div>
+    
+            <div class="clients-grid">
+                @foreach (var client in Model)
+                {
+                    var isRegistered = client.RegStatus == "registred";
+                
+                    <article  class="client-card">
+                        <div class="client-avatar">👤</div>
+                
+                        <div class="client-info">
+                            <span class="client-status @(isRegistered ? "registered" : "unregistered")">
+                                @(isRegistered ? "Зарегистрирован" : "Не зарегистрирован")
+                            </span>
+    
+                            <h3>@client.ClientName</h3>
+                            <p>@client.PhoneNumber</p>
+                            <a asp-action="ClientDetails" asp-route-id="@client.Id">Details</a>
+                
+                        </div>
+                    </article>
+                    
+                }
+            </div>
+        </section>
+    </main>

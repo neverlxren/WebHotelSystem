@@ -1,0 +1,86 @@
+@model List<Apartment>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Apartament List";
+}
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <link rel="stylesheet" href="~/css/apartamentStyle.css" asp-append-version="true" />
+</head>
+
+<body>
+<main class="page-shell">
+  <header class="topbar">
+    <a class="brand" href="#">
+      <span class="brand-mark">A</span>
+      <span>ApartmentsDB</span>
+    </a>
+    <div class="topbar-actions">
+      <button class="icon-button">⌁<span class="notification-dot"></span></button>
+      <button class="profile"><span>АД</span></button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <p class="eyebrow">ОБЗОР ОТЕЛЯ</p>
+      <h1>Апартаменты</h1>
+      <p class="subtitle">Статус номеров на сегодня, @DateTime.Now.Date</p>
+    </div>
+    <button class="add-button" type="button"><span>+</span> Добавить номер</button>
+  </section>
+
+  <section class="summary">
+    <article><span class="status-dot available"></span>
+      <div><strong id="available-count">0</strong><span>Свободно</span></div></article>
+    <article><span class="status-dot cleaning"></span>
+      <div><strong id="cleaning-count">0</strong><span>Уборка</span></div></article>
+    <article><span class="status-dot occupied"></span>
+      <div><strong id="occupied-count">0</strong><span>Занято</span></div></article>
+  </section>
+
+  <section class="apartments-panel">
+    <div class="panel-heading">
+      <div>
+        <h2>Номера</h2>
+        <p>Нажмите на карточку, чтобы открыть бронирование</p>
+      </div>
+      <button class="filter-button" type="button">⌄ <span>Все этажи</span></button>
+
+      @foreach (var room in Model)
+      {
+        <b> @room.AppNumber - </b>
+        @if (room.IsReady)
+        {
+          <b>O</b>
+        }
+        else
+        {
+          <b>X</b>
+        }
+
+        <br/>
+      }
+
+      @* @for (int count = 0; count < Model.Count; count++) *@
+      @* { *@
+      @*    *@
+      @*    *@
+      @*   if (count % 4 == 0) *@
+      @*   { *@
+      @*     <br/> *@
+      @*   } *@
+      @* } *@
+
+    </div>
+    <div class="apartment-grid" id="apartment-grid"></div>
+  </section>
+</main>
+
+@* <div class="toast" id="toast" role="status"></div> *@
+@* <script src="app.js"></script> *@
+</body>
+</html>

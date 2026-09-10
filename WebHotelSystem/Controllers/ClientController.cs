@@ -28,6 +28,16 @@ public class ClientController : Controller
         return View();
     }
 
+    [HttpGet("client/list")]
+    public async Task<IActionResult> ClientList()
+    {
+        return View(await _dbContext.Clients.ToListAsync());
+    }
+    
+    
+    // ----------------------------------------------------
+    //          POST
+    
     [HttpPost]
     public async Task<IActionResult> Register(RegisterViewModel model)
     {
@@ -58,8 +68,27 @@ public class ClientController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpGet]
+    public async Task<IActionResult> ClientDetails(int? id)
+    {
+        if (id is null) return NotFound();
+
+        var client = await _dbContext.Clients.FindAsync(id);
+        if (client is null) return NotFound();
+
+        return View(client);
+    }
     
     // http methods: get, post, put, patch, delete, query(get+post)
     
+    [HttpPost]
+    public async Task<IActionResult> EditClient(Client client)
+    {
+        _dbContext.Clients.Update(client);
+        await _dbContext.SaveChangesAsync();
+
+        return RedirectToAction(nameof(ClientList));
+    }
     
 }

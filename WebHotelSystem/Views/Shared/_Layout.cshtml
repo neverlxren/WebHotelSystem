@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="css/apartamentStyle.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/WebHotelSystem.apartamentStyle.css" asp-append-version="true"/>
+
     
  
   
@@ -40,16 +41,17 @@
                 <ul class="navbar-nav flex-grow-1">
                     
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Apartment" asp-action="ApartmentList">ApartmentList</a>
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="ClientList">Client List</a>
                     </li>
                     
-                    <li>
-                        <a asp-controller="Client" asp-action="Register">Register</a>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="ClientList">Client List</a>
                     </li>
+
                 </ul>
             </div>
         </div>

@@ -1,31 +1,116 @@
+
 @model WebHotelSystem.Models.Client
 
+<link rel="stylesheet" href="/css/clientdetails.css" />
 @{
-    ViewBag.Title = "title";
+    ViewData["Title"] = "Редактирование клиента";
     Layout = "_Layout";
 }
 
-<h1>@Model.ClientName</h1>
+<main class="client-edit-page">
+    <a asp-action="ClientList" class="back-link">
+        ← Назад к клиентам
+    </a>
 
-<h2>@Html.DisplayNameFor(client => client.Email)</h2>
+    <section class="client-edit-heading">
+        <div>
+            <p class="page-label">КАРТОЧКА КЛИЕНТА</p>
+            <h1>Редактирование клиента</h1>
+            <p class="page-description">
+                Измените данные гостя и сохраните обновления.
+            </p>
+        </div>
 
-<form asp-action="EditClient"  method="post">
-    
-    @Html.AntiForgeryToken()
+        <span class="registration-status">@Model.RegStatus</span>
+    </section>
 
-    <input type="hidden" asp-for="Id">
+    <section class="client-edit-layout">
+        <form asp-action="EditClient" method="post" class="client-edit-form">
+            @Html.AntiForgeryToken()
 
-    <input asp-for="ClientName" type="text" value="@Model.ClientName" placeholder="Enter your name">
-    <span asp-validation-for="ClientName" class="text-danger"></span> <br>
+            <input asp-for="Id" type="hidden" />
+            <input asp-for="RegStatus" type="hidden"/>
 
-    <input asp-for="PhoneNumber" type="text" value="@Model.PhoneNumber" placeholder="Enter your phone number"></input>
-    <span asp-validation-for="PhoneNumber" class="text-danger"></span> <br>
+            <div class="form-title">
+                <span class="form-number">01</span>
 
-    <input asp-for="Email" type="text" value="@Model.Email" placeholder="Enter your email"></input>
-    <span asp-validation-for="Email" class="text-danger"></span>
+                <div>
+                    <h2>Данные гостя</h2>
+                    <p>Контактная информация клиента</p>
+                </div>
+            </div>
 
-    <input asp-for="GuestCount" value="@Model.GuestCount" type="text">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <button>Send</button>
+            <div class="client-form-grid">
+                <div class="form-field full-width">
+                    <label asp-for="ClientName">Имя клиента</label>
+                    <input asp-for="ClientName" placeholder="Введите имя клиента" />
+                    <span asp-validation-for="ClientName" class="text-danger"></span>
+                </div>
 
-</form>
+                <div class="form-field">
+                    <label asp-for="PhoneNumber">Номер телефона</label>
+                    <input asp-for="PhoneNumber" placeholder="Введите номер телефона" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" placeholder="Введите email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="GuestCount">Количество гостей</label>
+                    <input asp-for="GuestCount" type="number" min="1" />
+                    <span asp-validation-for="GuestCount" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a asp-action="ClientList" class="cancel-button">
+                    Отмена
+                </a>
+
+                <button type="submit" class="save-button">
+                    Сохранить изменения
+                </button>
+            </div>
+        </form>
+
+        <aside class="client-preview-card">
+            <div class="preview-avatar">👤</div>
+
+            <p class="preview-label">ТЕКУЩИЙ КЛИЕНТ</p>
+            <h2>@Model.ClientName</h2>
+
+            <div class="preview-data">
+                <div>
+                    <span>Телефон</span>
+                    <strong>@Model.PhoneNumber</strong>
+                </div>
+
+                <div>
+                    <span>Email</span>
+                    <strong>@Model.Email</strong>
+                </div>
+
+                <div>
+                    <span>Количество гостей</span>
+                    <strong>@Model.GuestCount</strong>
+                </div>
+            </div>
+
+            <div class="preview-buttons">
+                <a href="tel:@Model.PhoneNumber" class="call-button">
+                    Позвонить
+                </a>
+
+                <a href="mailto:@Model.Email" class="email-button">
+                    Написать письмо
+                </a>
+            </div>
+        </aside>
+    </section>
+</main>

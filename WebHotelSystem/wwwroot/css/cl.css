@@ -237,3 +237,8 @@
         gap: 10px;
     }
 }
+
+.cancel-button {
+    color: black;
+    text-underline-offset: 0;
+}

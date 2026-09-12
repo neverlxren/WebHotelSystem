@@ -1,30 +1,97 @@
 @model WebHotelSystem.ViewModels.RegisterViewModel
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
-<div>
-    <h1 class="input-hotel">Register: </h1>
-    <form asp-action="Register" method="post">
-        @Html.AntiForgeryToken()
-        <input asp-for="ClientName" type="text" placeholder="Enter your name">
-        <span asp-validation-for="ClientName" class="text-danger"></span> <br>
+<link rel="stylesheet" href="/css/registercss.css" />
 
-        <input asp-for="PhoneNumber" type="text" placeholder="Enter your phone number"></input>
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span> <br>
+@{
+    ViewData["Title"] = "Регистрация клиента";
+    Layout = "_Layout";
+}
 
-        <input asp-for="Email" type="text" placeholder="Enter your email"></input>
-        <span asp-validation-for="Email" class="text-danger"></span>
+<main class="register-page">
+    <a asp-action="ClientList" class="back-link">
+        ← Назад к клиентам
+    </a>
 
-        <input asp-for="GuestCount" type="text">
+    <section class="register-heading">
+        <div>
+            <p class="page-label">НОВЫЙ ГОСТЬ</p>
+            <h1>Регистрация клиента</h1>
+            <p class="page-description">
+                Заполните данные гостя для создания новой карточки.
+            </p>
+        </div>
 
-        <button>Send</button>
+        <span class="new-client-badge">Новая регистрация</span>
+    </section>
 
-    </form>
+    <section class="register-layout">
+        <form asp-controller="Client"
+              asp-action="Register"
+              method="post"
+              class="register-form">
 
-</div>
-</body>
-</html>
+            @Html.AntiForgeryToken()
+
+            <div class="form-title">
+                <span class="form-number">01</span>
+
+                <div>
+                    <h2>Данные гостя</h2>
+                    <p>Контактная информация нового клиента</p>
+                </div>
+            </div>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="register-form-grid">
+                <div class="form-field full-width">
+                    <label asp-for="ClientName">Имя клиента</label>
+                    <input asp-for="ClientName" placeholder="Например, Jan Novák" />
+                    <span asp-validation-for="ClientName" class="text-danger"></span>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="PhoneNumber">Номер телефона</label>
+                    <input asp-for="PhoneNumber" placeholder="+420 000 000 000" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" type="email" placeholder="guest@email.com" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="GuestCount">Количество гостей</label>
+                    <input asp-for="GuestCount" type="number" min="1" placeholder="1" />
+                    <span asp-validation-for="GuestCount" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a asp-action="ClientList" class="cancel-button">
+                    Отмена
+                </a>
+
+                <button type="submit" class="register-button">
+                    Зарегистрировать клиента
+                </button>
+            </div>
+        </form>
+
+        <aside class="register-info-card">
+            <div class="info-icon">✓</div>
+
+            <p class="info-label">ПОСЛЕ РЕГИСТРАЦИИ</p>
+            <h2>Карточка гостя будет создана</h2>
+
+            <ul class="register-list">
+                <li>Клиент появится в списке гостей.</li>
+                <li>Будет сохранён номер телефона и email.</li>
+                <li>Статус получит значение «registred».</li>
+                <li>Данные можно будет изменить позднее.</li>
+            </ul>
+        </aside>
+    </section>
+</main>

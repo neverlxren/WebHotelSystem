@@ -31,7 +31,12 @@ public class ClientController : Controller
     [HttpGet("client/list")]
     public async Task<IActionResult> ClientList()
     {
-        return View(await _dbContext.Clients.ToListAsync());
+        var clients = await _dbContext.Clients
+            .Where(x => x.RegStatus == "registred")
+            .OrderBy(x => x.ClientName)
+            .ToListAsync();
+        
+        return View(clients);
     }
     
     

@@ -17,12 +17,6 @@ public class ApartmentController : Controller
 
     // GET
     [HttpGet]
-    public IActionResult Index()
-    {
-        return View();
-    }
-
-    [HttpGet]
     public async Task<IActionResult> ApartmentList()
     {
         var apartments = await _dbContext.Apartments

@@ -16,7 +16,13 @@ public partial class HotelDbContext : DbContext
 
     public virtual DbSet<Booking> Bookings { get; set; }
 
+    public virtual DbSet<Cleaning> Cleanings { get; set; }
+
     public virtual DbSet<Client> Clients { get; set; }
+
+    public virtual DbSet<GuestOrder> GuestOrders { get; set; }
+
+    public virtual DbSet<HotelWifiSetting> HotelWifiSettings { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -78,6 +84,39 @@ public partial class HotelDbContext : DbContext
                 .HasConstraintName("bookings_app_book_id_fkey");
         });
 
+        modelBuilder.Entity<Cleaning>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("cleaning_pkey");
+
+            entity.ToTable("cleaning");
+
+            entity.HasIndex(e => e.AppNumb, "cleaning_app_numb_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.AppNumb).HasColumnName("app_numb");
+            entity.Property(e => e.CleaningStatus)
+                .HasMaxLength(32)
+                .HasDefaultValueSql("'in process'::character varying")
+                .HasColumnName("cleaning_status");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_at");
+            entity.Property(e => e.RealisedBy)
+                .HasMaxLength(32)
+                .HasColumnName("realised_by");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("updated_at");
+
+            entity.HasOne(d => d.AppNumbNavigation).WithOne(p => p.Cleaning)
+                .HasPrincipalKey<Apartment>(p => p.AppNumber)
+                .HasForeignKey<Cleaning>(d => d.AppNumb)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("cleaning_app_numb_fkey");
+        });
+
         modelBuilder.Entity<Client>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("clients_pkey");
@@ -113,6 +152,75 @@ public partial class HotelDbContext : DbContext
                 .HasDefaultValueSql("now()")
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("updated_at");
+        });
+
+        modelBuilder.Entity<GuestOrder>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("guest_orders_pkey");
+
+            entity.ToTable("guest_orders");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.AppNumb).HasColumnName("app_numb");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_at");
+            entity.Property(e => e.Description)
+                .HasMaxLength(300)
+                .HasColumnName("description");
+            entity.Property(e => e.Guest).HasColumnName("guest");
+            entity.Property(e => e.OrderStatus)
+                .HasMaxLength(32)
+                .HasDefaultValueSql("'new'::character varying")
+                .HasColumnName("order_status");
+            entity.Property(e => e.RealisedBy)
+                .HasMaxLength(32)
+                .HasColumnName("realised_by");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("updated_at");
+
+            entity.HasOne(d => d.AppNumbNavigation).WithMany(p => p.GuestOrders)
+                .HasPrincipalKey(p => p.AppNumber)
+                .HasForeignKey(d => d.AppNumb)
+                .HasConstraintName("guest_orders_app_numb_fkey");
+
+            entity.HasOne(d => d.GuestNavigation).WithMany(p => p.GuestOrders)
+                .HasForeignKey(d => d.Guest)
+                .HasConstraintName("guest_orders_guest_fkey");
+        });
+
+        modelBuilder.Entity<HotelWifiSetting>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("settings_pkey");
+
+            entity.ToTable("hotel_wifi_settings");
+
+            entity.HasIndex(e => e.WifiName, "settings_wifi_name_key").IsUnique();
+
+            entity.HasIndex(e => e.WifiPassword, "settings_wifi_password_key").IsUnique();
+
+            entity.Property(e => e.Id)
+                .HasDefaultValueSql("nextval('settings_id_seq'::regclass)")
+                .HasColumnName("id");
+            entity.Property(e => e.AppNumb).HasColumnName("app_numb");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("updated_at");
+            entity.Property(e => e.WifiName)
+                .HasMaxLength(32)
+                .HasColumnName("wifi_name");
+            entity.Property(e => e.WifiPassword)
+                .HasMaxLength(32)
+                .HasColumnName("wifi_password");
+
+            entity.HasOne(d => d.AppNumbNavigation).WithMany(p => p.HotelWifiSettings)
+                .HasPrincipalKey(p => p.AppNumber)
+                .HasForeignKey(d => d.AppNumb)
+                .HasConstraintName("settings_app_numb_fkey");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -15,7 +15,7 @@ public partial class GuestOrder
 
     public string Description { get; set; } = null!;
 
-    public string RealisedBy { get; set; } = null!;
+    public string? RealisedBy { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

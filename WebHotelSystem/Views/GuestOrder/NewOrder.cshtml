@@ -1,0 +1,94 @@
+@model WebHotelSystem.ViewModels.NewGuestOrderViewModel
+
+<link rel="stylesheet" href="/css/registercss.css" />
+
+@{
+    ViewData["Title"] = "Новая заявка";
+    Layout = "_Layout";
+}
+
+<main class="register-page">
+    <a asp-action="GuestOrders" class="back-link">
+        ← Назад к заявкам
+    </a>
+
+    <section class="register-heading">
+        <div>
+            <p class="page-label">ОБСЛУЖИВАНИЕ ГОСТЕЙ</p>
+            <h1>Новая заявка</h1>
+            <p class="page-description">
+                Укажите гостя, номер и суть запроса.
+            </p>
+        </div>
+
+        <span class="new-client-badge">Новая заявка</span>
+    </section>
+
+    <section class="register-layout">
+        <form asp-controller="GuestOrder"
+              asp-action="Create"
+              method="post"
+              class="register-form">
+
+            @Html.AntiForgeryToken()
+
+            <div class="form-title">
+                <span class="form-number">01</span>
+
+                <div>
+                    <h2>Данные заявки</h2>
+                    <p>Имя гостя, номер и описание проблемы</p>
+                </div>
+            </div>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="register-form-grid">
+                <div class="form-field full-width">
+                    <label asp-for="ClientName">Имя гостя</label>
+                    <input asp-for="ClientName" placeholder="Например, Jan Novák" />
+                    <span asp-validation-for="ClientName" class="text-danger"></span>
+                    <small class="field-hint">
+                        Если гостя с таким именем ещё нет в базе — он будет создан автоматически.
+                    </small>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="AppNumb">Номер</label>
+                    <input asp-for="AppNumb" type="number" min="1" placeholder="204" />
+                    <span asp-validation-for="AppNumb" class="text-danger"></span>
+                </div>
+
+                <div class="form-field full-width">
+                    <label asp-for="Description">Описание проблемы</label>
+                    <textarea asp-for="Description" rows="5" placeholder="Опишите, что нужно гостю..."></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a asp-action="GuestOrders" class="cancel-button">
+                    Отмена
+                </a>
+
+                <button type="submit" class="register-button">
+                    Создать заявку
+                </button>
+            </div>
+        </form>
+
+        <aside class="register-info-card">
+            <div class="info-icon">✓</div>
+
+            <p class="info-label">ПОСЛЕ СОЗДАНИЯ</p>
+            <h2>Заявка появится в списке</h2>
+
+            <ul class="register-list">
+                <li>Заявка получит статус «New».</li>
+                <li>Исполнитель пока не назначен.</li>
+                <li>Заявку можно будет взять в работу позднее.</li>
+                <li>Если гостя не было в базе — он будет создан.</li>
+            </ul>
+        </aside>
+    </section>
+</main>

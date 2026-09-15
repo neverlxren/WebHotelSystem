@@ -1,0 +1,116 @@
+@model List<WebHotelSystem.Models.GuestOrder>
+
+<head>
+    <link rel="stylesheet" href="/css/guestorders.css" /> 
+    </head>
+
+@{
+    ViewData["Title"] = "Заявки гостей";
+    Layout = "_Layout";
+}
+
+<main class="orders-page">
+    <section class="orders-heading">
+        <div>
+            <p class="page-label">ОБСЛУЖИВАНИЕ ГОСТЕЙ</p>
+            <h1>Guest orders</h1>
+            <p class="page-description">
+                Пожелания гостей, ремонт и дополнительные запросы.
+            </p>
+        </div>
+
+        <a asp-action="Create" class="new-order-button">
+            + Новая заявка
+        </a>
+    </section>
+
+    <section class="orders-summary">
+        <article>
+            <span class="summary-dot new-dot"></span>
+            <div>
+                <strong>@Model.Count(order => order.OrderStatus == "New")</strong>
+                <span>Новые</span>
+            </div>
+        </article>
+
+        <article>
+            <span class="summary-dot progress-dot"></span>
+            <div>
+                <strong>@Model.Count(order => order.OrderStatus == "InProgress")</strong>
+                <span>В работе</span>
+            </div>
+        </article>
+
+        <article>
+            <span class="summary-dot completed-dot"></span>
+            <div>
+                <strong>@Model.Count(order => order.OrderStatus == "Completed")</strong>
+                <span>Выполнено</span>
+            </div>
+        </article>
+    </section>
+
+    <section class="orders-panel">
+        <div class="panel-heading">
+            <div>
+                <h2>Активные заявки</h2>
+                <p>Выберите заявку, чтобы посмотреть детали.</p>
+            </div>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="empty-orders">
+                <div>✓</div>
+                <h3>Заявок пока нет</h3>
+                <p>Когда гость оставит пожелание, оно появится здесь.</p>
+            </div>
+        }
+        else
+        {
+            <div class="orders-grid">
+                @foreach (var order in Model)
+                {
+                    var statusClass = order.OrderStatus switch
+                    {
+                        "Completed" => "completed-status",
+                        "InProgress" => "progress-status",
+                        "Cancelled" => "cancelled-status",
+                        _ => "new-status"
+                    };
+
+                    <article class="order-card">
+                        <div class="order-card-top">
+                            <span class="order-number">Заявка №@order.Id</span>
+
+                            <span class="order-status @statusClass">
+                                @order.OrderStatus
+                            </span>
+                        </div>
+
+                        <h3>@order.GuestNavigation?.ClientName</h3>
+
+                        <p class="apartment-number">
+                            Номер: @(order.AppNumb ?? 0)
+                        </p>
+
+                        <p class="order-description">
+                            @order.Description
+                        </p>
+
+                        <div class="order-card-footer">
+                            <span>
+                                Исполнитель:
+                                <strong>@(string.IsNullOrEmpty(order.RealisedBy) ? "Не назначен" : order.RealisedBy)</strong>
+                            </span>
+
+                            <span>
+                                @order.CreatedAt?.ToString("dd.MM.yyyy HH:mm")
+                            </span>
+                        </div>
+                    </article>
+                }
+            </div>
+        }
+    </section>
+</main>

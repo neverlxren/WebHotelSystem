@@ -23,7 +23,10 @@
 
         <span class="registration-status">@Model.RegStatus</span>
     </section>
-
+@if (Model.RegStatus == "fail")
+    {
+        
+    }
     <section class="client-edit-layout">
         <form asp-action="EditClient" method="post" class="client-edit-form">
             @Html.AntiForgeryToken()

@@ -1,0 +1,86 @@
+@model List<WebHotelSystem.Models.HotelWifiSetting>
+
+<link rel="stylesheet" href="/css/hotelwifi.css" />
+
+@{
+    ViewData["Title"] = "Wi-Fi settings";
+    Layout = "_Layout";
+}
+
+<main class="wifi-page">
+    <section class="wifi-heading">
+        <div>
+            <p class="page-label">НАСТРОЙКИ ОТЕЛЯ</p>
+            <h1>Wi-Fi settings</h1>
+            <p class="page-description">
+                Пароли Wi‑Fi в апартаментах.
+            </p>
+        </div>
+
+        <a asp-action="Create" class="add-wifi-button">
+            + Добавить Wi‑Fi
+        </a>
+    </section>
+
+    <section class="wifi-summary">
+        <article>
+            <span class="summary-dot total-dot"></span>
+            <div>
+                <strong>@Model.Count</strong>
+                <span>Всего сетей</span>
+            </div>
+        </article>
+    </section>
+
+    <section class="wifi-panel">
+        <div class="panel-heading">
+            <div>
+                <h2>Wi‑Fi в номерах</h2>
+                <p>Данные доступны только администрации отеля.</p>
+            </div>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="empty-settings">
+                <div>⌁</div>
+                <h3>Wi‑Fi ещё не добавлен</h3>
+                <p>Добавьте первую сеть для номера.</p>
+            </div>
+        }
+        else
+        {
+            <div class="wifi-grid">
+                @foreach (var setting in Model)
+                {
+                    <article class="wifi-card">
+                        <div class="wifi-card-top">
+                            <span class="room-badge">
+                                Номер @setting.AppNumb
+                            </span>
+                        </div>
+
+                        <div class="wifi-icon">⌁</div>
+
+                        <p class="wifi-label">ПАРОЛЬ ОТ WI‑FI</p>
+
+                        <div class="password-box">
+                            @setting.WifiPassword
+                        </div>
+
+                        <div class="wifi-card-footer">
+                            <span>Настройка №@setting.Id</span>
+
+                            <a asp-action="Edit"
+                               asp-route-id="@setting.Id"
+                               class="edit-link">
+                                Изменить
+                            </a>
+                        </div>
+                    </article>
+                }
+            </div>
+        }
+    </section>
+</main>
+@* TODO: isavailable function *@

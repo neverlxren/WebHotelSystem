@@ -45,28 +45,49 @@
   </section>
 
   <section class="apartments-panel">
+
     <div class="panel-heading">
       <div>
         <h2>Номера</h2>
         <p>Нажмите на карточку, чтобы открыть бронирование</p>
       </div>
-      <button class="filter-button" type="button">⌄ <span>Все этажи</span></button>
+
+      <button class="filter-button" type="button">
+        ⌄
+        <span>Все этажи</span>
+      </button>
+    </div>
+
+
+    <div class="apartment-grid">
 
       @foreach (var room in Model)
       {
-        <b> @room.AppNumber - </b>
-        @if (room.IsReady)
-        {
-          <b>O</b>
-        }
-        else
-        {
-          <b>X</b>
-        }
+        <div class="room-card @(room.IsReady ? "available" : "not-ready")">
 
-        <br/>
+          <div class="room-number">
+            @room.AppNumber
+          </div>
+
+          <div class="room-status">
+            <span class="status-dot"></span>
+
+            @if (room.IsReady)
+            {
+              <span>Свободен</span>
+            }
+            else
+            {
+              <span>Не готов</span>
+            }
+          </div>
+
+        </div>
       }
 
+    </div>
+
+  </section>
       @* @for (int count = 0; count < Model.Count; count++) *@
       @* { *@
       @*    *@

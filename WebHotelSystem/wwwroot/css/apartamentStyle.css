@@ -15,11 +15,19 @@ button {
     cursor: pointer;
 }
 
+/* =========================
+   PAGE
+   ========================= */
+
 .page-shell {
     width: min(1120px, calc(100% - 48px));
     margin: 0 auto;
     padding: 28px 0 64px;
 }
+
+/* =========================
+   TOPBAR
+   ========================= */
 
 .topbar {
     display: flex;
@@ -35,7 +43,6 @@ button {
     text-decoration: none;
     font-size: 18px;
     font-weight: 700;
-    letter-spacing: 0;
 }
 
 .brand-mark {
@@ -95,6 +102,10 @@ button {
     font-weight: 700;
 }
 
+/* =========================
+   HERO
+   ========================= */
+
 .hero {
     display: flex;
     align-items: end;
@@ -144,6 +155,10 @@ h1 {
     vertical-align: -1px;
 }
 
+/* =========================
+   SUMMARY
+   ========================= */
+
 .summary {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -162,7 +177,7 @@ h1 {
     background: rgba(255, 255, 255, 0.72);
 }
 
-.status-dot {
+.summary .status-dot {
     flex: 0 0 auto;
     width: 11px;
     height: 11px;
@@ -170,15 +185,15 @@ h1 {
     box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.025);
 }
 
-.available {
+.summary .available {
     background: #38bf70;
 }
 
-.cleaning {
+.summary .cleaning {
     background: #f2a329;
 }
 
-.occupied {
+.summary .occupied {
     background: #ef5a62;
 }
 
@@ -198,6 +213,10 @@ h1 {
     font-size: 13px;
 }
 
+/* =========================
+   APARTMENTS PANEL
+   ========================= */
+
 .apartments-panel {
     padding: 30px;
     border: 1px solid #e8eae7;
@@ -208,7 +227,7 @@ h1 {
 
 .panel-heading {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 28px;
 }
@@ -236,108 +255,128 @@ h1 {
     margin-left: 5px;
 }
 
+/* =========================
+   ROOM GRID
+   ========================= */
+
 .apartment-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
 }
 
-.apartment-card {
+/* =========================
+   ROOM CARD
+   ========================= */
+
+.room-card {
     position: relative;
-    min-height: 145px;
-    overflow: hidden;
-    padding: 21px;
-    border: 1px solid #e9ebe9;
-    border-radius: 16px;
+    display: block;
+    min-height: 130px;
+    padding: 22px 24px;
+
+    border: 1px solid #e5e7e5;
+    border-radius: 18px;
+
     background: #fff;
-    text-align: left;
-    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    color: #20232a;
+    text-decoration: none;
+
+    transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease,
+            border-color 0.2s ease;
 }
 
-.apartment-card:hover {
-    z-index: 1;
+.room-card:hover {
     border-color: #dfe4df;
-    box-shadow: 0 12px 22px rgba(29, 45, 34, 0.09);
-    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(29, 45, 34, 0.08);
+    transform: translateY(-3px);
 }
 
-.apartment-card:focus-visible {
-    outline: 3px solid #b8dcbf;
-    outline-offset: 2px;
+/* Green left border */
+
+.room-card.available {
+    border-left: 5px solid #38bf70;
 }
 
-.apartment-card summary {
-    display: block;
-    min-height: 101px;
-    cursor: pointer;
-    list-style: none;
+/* Red left border */
+
+.room-card.not-ready {
+    border-left: 5px solid #ef5a62;
 }
 
-.apartment-card summary::-webkit-details-marker {
-    display: none;
-}
-
-.apartment-card[open] summary {
-    min-height: auto;
-}
-
-.apartment-card p {
-    display: none;
-    margin: 12px 0 0;
-    padding-top: 10px;
-    border-top: 1px solid #e8eae7;
-    color: #777b85;
-    font-size: 12px;
-}
-
-.apartment-card[open] p {
-    display: block;
-}
+/* =========================
+   ROOM NUMBER
+   ========================= */
 
 .room-number {
     display: block;
+
     font-family: "Playfair Display", serif;
-    font-size: 30px;
+    font-size: 32px;
     font-weight: 700;
+    line-height: 1;
+
     letter-spacing: -1px;
 }
 
-.guest-count {
-    display: block;
-    margin-top: 8px;
-    color: #8c9198;
-    font-size: 12px;
-}
+/* =========================
+   ROOM STATUS
+   ========================= */
 
 .room-status {
     position: absolute;
-    right: 17px;
-    bottom: 17px;
+    left: 24px;
+    bottom: 20px;
+
     display: flex;
     align-items: center;
-    gap: 6px;
-    color: #6e747b;
-    font-size: 11px;
+    gap: 8px;
+
+    color: #777b85;
+    font-size: 13px;
 }
 
 .room-status .status-dot {
     width: 9px;
     height: 9px;
+    border-radius: 50%;
 }
 
-.room-status.available-text {
+/* Green status */
+
+.room-card.available .status-dot {
+    background: #38bf70;
+}
+
+.room-card.available .room-status {
     color: #258a50;
 }
 
-.room-status.cleaning-text {
-    color: #b97710;
+/* Red status */
+
+.room-card.not-ready .status-dot {
+    background: #ef5a62;
 }
 
-.room-status.occupied-text {
+.room-card.not-ready .room-status {
     color: #d6424b;
 }
 
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 900px) {
+
+    .apartment-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media (max-width: 720px) {
+
     .page-shell {
         width: min(100% - 28px, 560px);
         padding-top: 16px;
@@ -345,7 +384,7 @@ h1 {
 
     .hero {
         flex-direction: column;
-        align-items: start;
+        align-items: flex-start;
         gap: 23px;
         padding: 46px 0 28px;
     }
@@ -394,12 +433,18 @@ h1 {
         gap: 10px;
     }
 
-    .apartment-card {
+    .room-card {
         min-height: 122px;
-        padding: 16px;
+        padding: 18px;
     }
 
     .room-number {
         font-size: 27px;
+    }
+
+    .room-status {
+        left: 18px;
+        bottom: 16px;
+        font-size: 12px;
     }
 }

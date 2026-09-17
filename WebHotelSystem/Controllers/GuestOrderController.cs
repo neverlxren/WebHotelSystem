@@ -41,7 +41,7 @@ public class GuestOrderController : Controller
             return View("NewOrder", model);
         }
  
-        // Проверяем, что квартира с таким номером существует
+        // чек существует ли квартира
         var apartmentExists = await _dbContext.Apartments
             .AnyAsync(a => a.AppNumber == model.AppNumb);
  
@@ -50,7 +50,7 @@ public class GuestOrderController : Controller
             ModelState.AddModelError(nameof(model.AppNumb), "Квартира с таким номером не найдена");
             return View("NewOrder", model);
         }
-        // Ищем существующего гостя по имени
+        // ищем существующего гостя по нейму
         var client = await _dbContext.Clients
             .FirstOrDefaultAsync(c => c.ClientName == model.ClientName);
  

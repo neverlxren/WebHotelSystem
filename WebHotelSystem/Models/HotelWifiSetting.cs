@@ -12,7 +12,7 @@ public partial class HotelWifiSetting
     public string WifiName { get; set; } = null!;
 
     public string WifiPassword { get; set; } = null!;
-
+    
     public DateTime? UpdatedAt { get; set; }
 
     public virtual Apartment? AppNumbNavigation { get; set; }

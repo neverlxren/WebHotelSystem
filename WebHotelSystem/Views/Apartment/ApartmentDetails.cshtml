@@ -1,0 +1,174 @@
+@model WebHotelSystem.Models.Apartment
+
+<link rel="stylesheet" href="/css/apartmentdetails.css" />
+
+@{
+    ViewData["Title"] = "Редактирование номера";
+    Layout = "_Layout";
+}
+
+<main class="apartment-edit-page">
+
+    <a asp-action="ApartmentList" class="back-link">
+        ← Назад к номерам
+    </a>
+
+    <section class="apartment-edit-heading">
+        <div>
+            <p class="page-label">КАРТОЧКА НОМЕРА</p>
+
+            <h1>Редактирование номера</h1>
+
+            <p class="page-description">
+                Измените данные номера и сохраните обновления.
+            </p>
+        </div>
+
+        <span class="room-status-badge @(Model.IsReady ? "ready" : "not-ready")">
+            @(Model.IsReady ? "Свободен" : "Не готов")
+        </span>
+    </section>
+
+
+    <section class="apartment-edit-layout">
+
+        <!-- ФОРМА -->
+
+        <form asp-action="EditApartment"
+              method="post"
+              class="apartment-edit-form">
+
+            @Html.AntiForgeryToken()
+
+            <input asp-for="Id" type="hidden" />
+
+            <div class="form-title">
+
+                <span class="form-number">01</span>
+
+                <div>
+                    <h2>Данные номера</h2>
+                    <p>Основная информация об апартаменте</p>
+                </div>
+
+            </div>
+
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger">
+            </div>
+
+
+            <div class="apartment-form-grid">
+
+                <div class="form-field">
+
+                    <label asp-for="AppNumber">
+                        Номер комнаты
+                    </label>
+
+                    <input asp-for="AppNumber"
+                           placeholder="Введите номер комнаты" />
+
+                    <span asp-validation-for="AppNumber"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <label asp-for="IsReady">
+                        Статус номера
+                    </label>
+
+                    <select asp-for="IsReady">
+
+                        <option value="true">
+                            Свободен
+                        </option>
+
+                        <option value="false">
+                            Не готов
+                        </option>
+
+                    </select>
+
+                    <span asp-validation-for="IsReady"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <a asp-action="ApartmentList"
+                   class="cancel-button">
+                    Отмена
+                </a>
+
+                <button type="submit"
+                        class="save-button">
+                    Сохранить изменения
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <!-- ПРЕВЬЮ НОМЕРА -->
+
+        <aside class="apartment-preview-card">
+
+            <div class="preview-room-icon">
+                @Model.AppNumber
+            </div>
+
+            <p class="preview-label">
+                ТЕКУЩИЙ НОМЕР
+            </p>
+
+            <h2>
+                Номер @Model.AppNumber
+            </h2>
+
+
+            <div class="preview-data">
+
+                <div>
+                    <span>Номер</span>
+                    <strong>
+                        @Model.AppNumber
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Статус</span>
+
+                    <strong>
+                        @(Model.IsReady ? "Свободен" : "Не готов")
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="preview-buttons">
+
+                <a asp-action="ApartmentList"
+                   class="back-button">
+                    К списку номеров
+                </a>
+
+            </div>
+
+        </aside>
+
+    </section>
+
+</main>

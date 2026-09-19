@@ -24,25 +24,24 @@ public class ApartmentController : Controller
 
         return View(apartments);
     }
-    
+
+
+    [HttpGet]
+    public async Task<IActionResult> ApartmentDetails(int id)
+    {
+        var apartment = await _dbContext.Apartments
+            .FirstOrDefaultAsync(a => a.Id == id);
+
+        if (apartment == null)
+        {
+            return NotFound();
+        }
+
+        return View(apartment);
+    }
+
 }
 
-// [HttpGet]
-    // public async Task<IActionResult> Details(int id)
-    // {
-    //     var apartment = await _dbContext.Apartments
-    //         .FirstOrDefaultAsync(a => a.Id == id);
-    //
-    //     if (apartment == null)
-    //     {
-    //         return NotFound();
-    //     }
-    //
-    //     return View(apartment);
-    // }
-    
-   
-    
 
 // bookings: view all, create booking, update booking, details booking ... etc.
 

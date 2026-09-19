@@ -1,0 +1,339 @@
+.apartment-edit-page {
+    width: min(1120px, calc(100% - 48px));
+    margin: 0 auto;
+    padding: 40px 0 70px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 30px;
+    color: #777b85;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.back-link:hover {
+    color: #20232a;
+}
+
+
+/* =========================
+   HEADING
+   ========================= */
+
+.apartment-edit-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.page-label {
+    margin: 0 0 8px;
+    color: #809382;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.apartment-edit-heading h1 {
+    margin: 0;
+    font-family: "Playfair Display", serif;
+    font-size: 46px;
+    line-height: 1;
+    letter-spacing: -1.5px;
+}
+
+.page-description {
+    margin: 13px 0 0;
+    color: #777b85;
+    font-size: 15px;
+}
+
+
+/* =========================
+   STATUS
+   ========================= */
+
+.room-status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.room-status-badge.ready {
+    color: #258a50;
+    background: #eaf8ef;
+}
+
+.room-status-badge.not-ready {
+    color: #d6424b;
+    background: #fdecee;
+}
+
+
+/* =========================
+   LAYOUT
+   ========================= */
+
+.apartment-edit-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.8fr);
+    gap: 22px;
+}
+
+
+/* =========================
+   FORM
+   ========================= */
+
+.apartment-edit-form {
+    padding: 30px;
+    border: 1px solid #e8eae7;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.88);
+}
+
+.form-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 30px;
+}
+
+.form-number {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border-radius: 11px;
+    color: #fff;
+    background: #20232a;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.form-title h2 {
+    margin: 0;
+    font-family: "Playfair Display", serif;
+    font-size: 24px;
+}
+
+.form-title p {
+    margin: 4px 0 0;
+    color: #777b85;
+    font-size: 13px;
+}
+
+
+/* =========================
+   FORM GRID
+   ========================= */
+
+.apartment-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-field label {
+    margin-bottom: 7px;
+    color: #4e535a;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-field input,
+.form-field select {
+    width: 100%;
+    min-height: 45px;
+    padding: 10px 13px;
+    border: 1px solid #e1e4e1;
+    border-radius: 10px;
+    outline: none;
+    color: #20232a;
+    background: #fff;
+    font: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+    border-color: #aebdaf;
+    box-shadow: 0 0 0 3px rgba(128, 147, 130, 0.12);
+}
+
+
+/* =========================
+   ACTIONS
+   ========================= */
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 30px;
+    padding-top: 22px;
+    border-top: 1px solid #e8eae7;
+}
+
+.cancel-button,
+.save-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 43px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.cancel-button {
+    border: 1px solid #e2e4e2;
+    color: #555b62;
+    background: #fff;
+}
+
+.save-button {
+    border: 0;
+    color: #fff;
+    background: #20232a;
+}
+
+
+/* =========================
+   PREVIEW
+   ========================= */
+
+.apartment-preview-card {
+    padding: 30px;
+    border: 1px solid #e8eae7;
+    border-radius: 22px;
+    background: #20232a;
+    color: #fff;
+}
+
+.preview-room-icon {
+    display: grid;
+    width: 72px;
+    height: 72px;
+    margin-bottom: 28px;
+    place-items: center;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.1);
+    font-family: "Playfair Display", serif;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.preview-label {
+    margin: 0 0 8px;
+    color: #aeb5ae;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.apartment-preview-card h2 {
+    margin: 0 0 28px;
+    font-family: "Playfair Display", serif;
+    font-size: 28px;
+}
+
+.preview-data {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+
+.preview-data div {
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.preview-data span {
+    display: block;
+    margin-bottom: 5px;
+    color: #aeb5ae;
+    font-size: 11px;
+}
+
+.preview-data strong {
+    font-size: 14px;
+}
+
+.preview-buttons {
+    margin-top: 28px;
+}
+
+.back-button {
+    display: block;
+    padding: 11px 15px;
+    border-radius: 10px;
+    color: #20232a;
+    background: #fff;
+    text-align: center;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 800px) {
+
+    .apartment-edit-page {
+        width: min(100% - 28px, 600px);
+        padding-top: 25px;
+    }
+
+    .apartment-edit-heading {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .apartment-edit-heading h1 {
+        font-size: 38px;
+    }
+
+    .apartment-edit-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .apartment-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .apartment-edit-form,
+    .apartment-preview-card {
+        padding: 22px;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .cancel-button,
+    .save-button {
+        width: 100%;
+    }
+}

@@ -15,7 +15,7 @@ public class ClientController : ControllerBase
         _webHotelService = webHotelService;
     }
 
-    [HttpPost("client/create")]
+    [HttpPost("create/client")]
     public async Task<IActionResult> CreateClientAsync([FromBody] CreateClientDto dto)
     {
         var client = await _webHotelService.CreateClient(dto);
@@ -24,7 +24,7 @@ public class ClientController : ControllerBase
         return Ok(client);
     }
 
-    [HttpGet("client/allclients")]
+    [HttpGet("view/client={id:int}")]
     public async Task<IActionResult> GetClientInfoAsync(int id)
     {
         var client = await _webHotelService.GetApartmentInfoById(id);
@@ -35,8 +35,8 @@ public class ClientController : ControllerBase
         return Ok();
     }
 
-    [HttpPatch("{id}")]
-    public async Task<ActionResult<ClientResponseDto>> EditClientAsync(int id, EditClientDto dto)
+    [HttpPatch("edit/client={id:int}")]
+    public async Task<IActionResult> EditClientAsync([FromBody] EditClientDto dto, int id)
     {
         var client = await _webHotelService.EditClient(dto, id);
 
@@ -45,7 +45,7 @@ public class ClientController : ControllerBase
         return Ok(client);
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("delete/client={id:int}")]
     public async Task<IActionResult> DeleteClientAsync(int id)
     {
         var deleted = await _webHotelService.DeleteClient(id); //client -> deleted cuz result of operation
@@ -54,5 +54,12 @@ public class ClientController : ControllerBase
         return Ok(deleted);
     }
 
+    [HttpGet("view/clients")]
+    public async Task<IActionResult> GetAllClients()
+    {
+        var clients = await _webHotelService.GetAllClients();
+
+        return Ok(clients);
+    }
    
  }

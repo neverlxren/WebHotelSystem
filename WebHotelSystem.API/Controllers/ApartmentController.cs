@@ -16,7 +16,7 @@ public class ApartmentController : ControllerBase
         _webHotelService = webHotelService;
     }
 
-    [HttpGet("apartment/info={id:int}")]
+    [HttpGet("view/apartment={id:int}")]
     public async Task<IActionResult> GetAppInfoAsync(int id)
     {
         var apart = await _webHotelService.GetApartmentInfoById(id);
@@ -25,18 +25,17 @@ public class ApartmentController : ControllerBase
         return Ok(apart);
     }
 
-    [HttpPatch("{id}")] //переспросить 
-    public async Task<ActionResult<ApartmentResponseDto>> EditApartmentAsync(int id, ApartmentEditDto dto)
+    [HttpPatch("edit/apartment={id:int}")] //переспросить 
+    public async Task<IActionResult> EditApartmentAsync([FromBody] ApartmentEditDto dto, int id)
     {
         var apartment = await _webHotelService.EditApartment(dto, id);
 
-        if (apartment is null)
-            return NotFound();
+        if (apartment is null) return NotFound();
 
         return Ok(apartment);
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("delete/apartment={id:int}")]
     public async Task<IActionResult> BlockApartmentAsync(int id)
     {
         var apartment = await _webHotelService.BlockApartment(id);
@@ -45,7 +44,31 @@ public class ApartmentController : ControllerBase
             return NotFound();
         return NoContent();
     }
-    
+
+
+    [HttpGet("view/apartments")]
+    public async Task<IActionResult> GetAllApartments()
+    {
+        var apartments = await _webHotelService.GetAllApartments();
+
+        return Ok(apartments);
+    }
     //TODO: controllers for exist methods .... new services
 
+
+    
+    
+    // api/{model}/{action}/{params}
+    
+    // api/aparts/delete
+    // api/aparts/edit/{id}
+    
+    // ---
+    
+    
+    // api/{action}/{model}/{params}
+    
+    // api/view/appps
+    // api/view/client={id}
+    
 }

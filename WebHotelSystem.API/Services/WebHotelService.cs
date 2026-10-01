@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.JavaScript;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.JSInterop.Infrastructure;
 using Microsoft.OpenApi;
@@ -49,9 +50,12 @@ public class WebHotelService : IWebHotelService
         return ToDto(apart);
     }
 
-    public Task<IEnumerable<ApartmentResponseDto>> GetAllApartments()
+    public async Task<IEnumerable<ApartmentResponseDto>> GetAllApartments()
     {
-        throw new NotImplementedException();
+        var apartList =  await _dbContext.Apartments
+            .Select(x => ToDto(x))
+            .ToListAsync();
+        return(apartList);
     }
 
     public async Task<bool> BlockApartment(int id)
@@ -78,12 +82,14 @@ public class WebHotelService : IWebHotelService
         return client is null ? null : ToDto(client);
     }
 
-    //TODO: fix EditCLient
+    //TODO: fix EditCLient (upd: example bottom ??) 
     public async Task<ClientResponseDto?> EditClient(EditClientDto dto, int id)
     {
         var client = await _dbContext.Clients.FindAsync(id);
 
-        client.ClientName = dto.ClientName;
+        if (client is null) return null;
+
+        client.ClientName = dto.ClientName ?? client.ClientName;
         client.PhoneNumber = dto.PhoneNumber;
         client.Email = dto.Email;
         client.GuestCount = dto.GuestCount;
@@ -91,9 +97,13 @@ public class WebHotelService : IWebHotelService
         return client is null ? null : ToDto(client);
     }
 
-    public Task<IEnumerable<ClientResponseDto>> GetAllClients()
+    
+    public async Task<IEnumerable<ClientResponseDto>> GetAllClients()
     {
-        throw new NotImplementedException();
+        var clientList = await _dbContext.Clients.Select(x => ToDto(x)).
+            ToListAsync();
+
+        return (clientList);
     }
 
     public async Task<bool> DeleteClient(int id)
@@ -137,18 +147,21 @@ public async Task<OrderResponseDto?> GetOrderInfoById(int id)
     return order is null ? null : ToDto(order);
 }
 
-// public Task<OrderResponseDto?> CreateOrder(CreateOrderDto dto)
-// {
-//     // var order = new GuestOrder
-//     // {
-//     //     Guest = _dbContext.Clients.,
-//     //     Description = dto.Description,
-//     //     AppNumb = dto.AppNumb
-//     // };
-// }
-public Task<OrderResponseDto?> CreateOrder(CreateOrderDto dto)
+public async Task<OrderResponseDto?> CreateOrder(CreateOrderDto dto)
 {
-    throw new NotImplementedException();
+    // var guest = await _dbContext.Clients.SingleAsync(x => x.ClientName == dto.ClientName);
+    var order = new GuestOrder()
+    {
+        AppNumb = dto.AppNumb,
+        Guest = dto.ClientId,
+        OrderStatus = "New"
+        //todo: remake OrderDto + EditOrder
+    };
+    _dbContext.GuestOrders.Add(order);
+
+    await _dbContext.SaveChangesAsync();
+
+    return ToDto(order);
 }
 
 public Task<OrderResponseDto?> ChangeOrderStatus(int id)
@@ -158,11 +171,11 @@ public Task<OrderResponseDto?> ChangeOrderStatus(int id)
 
 public Task<IEnumerable<OrderResponseDto>> GetAllOrders()
 {
-    throw new NotImplementedException();
+    var orderlist = _dbContext.GuestOrders.Select(x =>  ToDto(x)).ToListAsync();
+    return (orderlist);
 }
 
 
-//TODO: interfaces, converters to DTO, try to fill services
 
 
     // --------Converters

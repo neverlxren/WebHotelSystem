@@ -35,6 +35,6 @@ public interface IWebHotelService
 
     Task<OrderResponseDto?> GetOrderInfoById(int id);
 
-    Task<OrderResponseDto?> ChangeOrderStatus(int id);
+    Task<OrderResponseDto?> ChangeOrderStatus(int id, string status);
 }
     

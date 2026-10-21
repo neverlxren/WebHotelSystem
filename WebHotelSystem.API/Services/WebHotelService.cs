@@ -81,8 +81,7 @@ public class WebHotelService : IWebHotelService
 
         return client is null ? null : ToDto(client);
     }
-
-    //TODO: fix EditCLient (upd: example bottom ??) 
+    
     public async Task<ClientResponseDto?> EditClient(EditClientDto dto, int id)
     {
         var client = await _dbContext.Clients.FindAsync(id);
@@ -90,11 +89,13 @@ public class WebHotelService : IWebHotelService
         if (client is null) return null;
 
         client.ClientName = dto.ClientName ?? client.ClientName;
-        client.PhoneNumber = dto.PhoneNumber;
-        client.Email = dto.Email;
-        client.GuestCount = dto.GuestCount;
+        client.PhoneNumber = dto.PhoneNumber ?? client.PhoneNumber;
+        client.Email = dto.Email ?? client.Email;
+        client.GuestCount = dto.GuestCount ?? client.GuestCount;
 
-        return client is null ? null : ToDto(client);
+        await _dbContext.SaveChangesAsync();
+
+        return ToDto(client);
     }
 
     
@@ -154,8 +155,12 @@ public async Task<OrderResponseDto?> CreateOrder(CreateOrderDto dto)
     {
         AppNumb = dto.AppNumb,
         Guest = dto.ClientId,
-        OrderStatus = "New"
-        //todo: remake OrderDto + EditOrder
+        OrderStatus = "new",
+        Description = dto.Description,
+        CreatedAt = DateTime.Now,
+        RealisedBy = "",
+        
+        //todo: remake OrderDto
     };
     _dbContext.GuestOrders.Add(order);
 
@@ -164,15 +169,23 @@ public async Task<OrderResponseDto?> CreateOrder(CreateOrderDto dto)
     return ToDto(order);
 }
 
-public Task<OrderResponseDto?> ChangeOrderStatus(int id)
+public async Task<OrderResponseDto?> ChangeOrderStatus(int id, string status)
 {
-    throw new NotImplementedException();
+    var order = await _dbContext.GuestOrders.FindAsync(id);
+
+    if (order is null)
+        return null;
+
+    order.OrderStatus = status;
+    await _dbContext.SaveChangesAsync();
+
+    return ToDto(order);
 }
 
-public Task<IEnumerable<OrderResponseDto>> GetAllOrders()
+public async Task<IEnumerable<OrderResponseDto>> GetAllOrders()
 {
-    var orderlist = _dbContext.GuestOrders.Select(x =>  ToDto(x)).ToListAsync();
-    return (orderlist);
+    var orderlist = await _dbContext.GuestOrders.Select(x =>  ToDto(x)).ToListAsync();
+    return orderlist;
 }
 
 

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using WebHotelSystem.API.DTOs;
 using WebHotelSystem.API.Services;
 
 namespace WebHotelSystem.API.Controllers;
@@ -13,7 +14,7 @@ public class OrderController : ControllerBase
         _webHotelService = webHotelService;
     }
 
-    [HttpGet("order/orders")]
+    [HttpGet("view/order={id:int}")]
     public async Task<IActionResult> GetOrderInfoAsync(int id)
     {
         var order = await _webHotelService.GetOrderInfoById(id);
@@ -22,12 +23,29 @@ public class OrderController : ControllerBase
         return Ok(order);
     }
     
-    /*[HttpPatch("{id}")]
-    public async Task<IActionResult> ChangeOrderStatusAsync(ChangeOrder dto, int id)
+    [HttpPatch("edit/order={id:int}&status={status}")]
+    public async Task<IActionResult> ChangeOrderStatus(int id, string status)
     {
-        var change = _webHotelService.ChangeOrderStatus(id);
+        var order = await _webHotelService.ChangeOrderStatus(id, status);
 
-        if (сhange is null) return NotFound();
-        
-    }*/
+        if (order is null)
+            return NotFound();
+        return Ok(order);
+    }
+
+    [HttpPost("create/order")]
+    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto dto)
+    {
+        var order = await _webHotelService.CreateOrder(dto);
+        if (order is null) return Conflict(new { message = "smtng goes wrong" });
+        return Ok(order);
+    }
+
+    [HttpGet("view/orders")]
+    public async Task<IActionResult> GetAllOrders()
+    {
+        var orderlist = await _webHotelService.GetAllOrders();
+
+        return Ok(orderlist);
+    }
 }

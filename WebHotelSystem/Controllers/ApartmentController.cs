@@ -21,7 +21,7 @@ public class ApartmentController : Controller
     {
         var apartments = await _dbContext.Apartments
             .ToListAsync();
-
+        
         return View(apartments);
     }
 

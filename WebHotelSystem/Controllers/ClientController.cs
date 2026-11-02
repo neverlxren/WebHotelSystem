@@ -71,7 +71,7 @@ public class ClientController : Controller
         _dbContext.Clients.Add(client);
         await _dbContext.SaveChangesAsync();
 
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(ClientList));
     }
 
     [HttpGet]
@@ -90,6 +90,7 @@ public class ClientController : Controller
     [HttpPost]
     public async Task<IActionResult> EditClient(Client client)
     {
+        client.UpdatedAt = DateTime.Now;
         _dbContext.Clients.Update(client);
         await _dbContext.SaveChangesAsync();
 

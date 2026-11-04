@@ -88,5 +88,25 @@ public class GuestOrderController : Controller
  
         return RedirectToAction(nameof(GuestOrders));
     }
+    
+    [HttpGet]
+    public async Task<IActionResult> Details(int? id)
+    {
+        var order = await _dbContext.GuestOrders
+            .FirstOrDefaultAsync(o => o.Id == id);
+
+        if (order == null)
+        {
+            return NotFound();
+        }
+
+        return View(order);
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> EditDetails(int? id)
+    {
+        
+    }
 }
  

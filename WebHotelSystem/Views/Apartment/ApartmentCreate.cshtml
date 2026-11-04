@@ -1,0 +1,139 @@
+@model WebHotelSystem.ViewModels.ApartmentCreateViewModel
+
+<link rel="stylesheet" href="/css/apartmentdetails.css" />
+
+@{
+    ViewData["Title"] = "Добавление номера";
+    Layout = "_Layout";
+}
+
+<main class="apartment-edit-page">
+
+    <a asp-action="ApartmentList" class="back-link">
+        ← Назад к номерам
+    </a>
+
+    <section class="apartment-edit-heading">
+        <div>
+            <p class="page-label">НОВЫЙ НОМЕР</p>
+
+            <h1>Добавление номера</h1>
+
+            <p class="page-description">
+                Заполните данные апартамента, чтобы добавить его в список номеров.
+            </p>
+        </div>
+
+        <span class="room-status-badge ready">Будет готов к заселению</span>
+    </section>
+
+    <section class="apartment-edit-layout">
+
+        <form asp-action="Create"
+              method="post"
+              class="apartment-edit-form">
+
+            @Html.AntiForgeryToken()
+
+            <div class="form-title">
+                <span class="form-number">01</span>
+
+                <div>
+                    <h2>Данные номера</h2>
+                    <p>Основная информация об апартаменте</p>
+                </div>
+            </div>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="apartment-form-grid">
+
+                <div class="form-field">
+                    <label asp-for="AppNumber">Номер комнаты</label>
+                    <input asp-for="AppNumber"
+                           type="number"
+                           placeholder="Например, 101" />
+                    <span asp-validation-for="AppNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="Rooms">Количество комнат</label>
+                    <input asp-for="Rooms"
+                           type="number"
+                           min="1"
+                           placeholder="Например, 2" />
+                    <span asp-validation-for="Rooms" class="text-danger"></span>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="Floor">Этаж</label>
+                    <input asp-for="Floor"
+                           type="number"
+                           placeholder="Например, 3" />
+                    <span asp-validation-for="Floor" class="text-danger"></span>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="PricePerNight">Цена за ночь</label>
+                    <input asp-for="PricePerNight"
+                           type="number"
+                           min="0"
+                           step="0.01"
+                           placeholder="Введите стоимость" />
+                    <span asp-validation-for="PricePerNight" class="text-danger"></span>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="IsFront">Расположение</label>
+                    <select asp-for="IsFront">
+                        <option value="true">Фасадная сторона</option>
+                        <option value="false">Другая сторона</option>
+                    </select>
+                    <span asp-validation-for="IsFront" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <a asp-action="ApartmentList" class="cancel-button">
+                    Отмена
+                </a>
+
+                <button type="submit" class="save-button">
+                    Добавить номер
+                </button>
+            </div>
+        </form>
+
+        <aside class="apartment-preview-card">
+            <div class="preview-room-icon">+</div>
+
+            <p class="preview-label">НОВЫЙ НОМЕР</p>
+
+            <h2>Апартамент</h2>
+
+            <div class="preview-data">
+                <div>
+                    <span>Статус после добавления</span>
+                    <strong>Свободен</strong>
+                </div>
+
+                <div>
+                    <span>Готовность</span>
+                    <strong>Готов к заселению</strong>
+                </div>
+            </div>
+
+            <div class="preview-buttons">
+                <a asp-action="ApartmentList" class="back-button">
+                    К списку номеров
+                </a>
+            </div>
+        </aside>
+
+    </section>
+</main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

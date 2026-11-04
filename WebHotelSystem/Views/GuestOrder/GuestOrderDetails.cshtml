@@ -1,0 +1,107 @@
+@model WebHotelSystem.Models.GuestOrder
+
+<link rel="stylesheet" href="/css/guestorderdetails.css" />
+
+@{
+    ViewData["Title"] = "Детали заявки";
+    Layout = "_Layout";
+}
+
+<main class="apartment-edit-page">
+
+    <a asp-action="GuestOrders" class="back-link">
+        ← Назад к заявкам
+    </a>
+
+    <section class="apartment-edit-heading">
+        <div>
+            <p class="page-label">ЗАЯВКА №@Model.Id</p>
+
+            <h1>Детали заявки</h1>
+
+            <p class="page-description">
+                Просмотрите заявку, назначьте исполнителя и обновите её статус.
+            </p>
+        </div>
+
+        <span class="room-status-badge">
+            @Model.OrderStatus
+        </span>
+    </section>
+
+    <section class="apartment-edit-layout">
+
+        <form asp-action="UpdateGuestOrder"
+              asp-route-id="@Model.Id"
+              method="post"
+              class="apartment-edit-form">
+
+            @Html.AntiForgeryToken()
+
+            <input asp-for="Id" type="hidden" />
+
+            <div class="form-title">
+                <span class="form-number">01</span>
+
+                <div>
+                    <h2>Управление заявкой</h2>
+                    <p>Назначьте сотрудника и выберите актуальный статус</p>
+                </div>
+            </div>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="apartment-form-grid">
+
+                <div class="form-field">
+                    <label>Гость</label>
+                    <input value="@Model.Guest" readonly />
+                </div>
+
+                <div class="form-field">
+                    <label>Номер</label>
+                    <input value="@Model.AppNumb" readonly />
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="@Model.RealisedBy">Исполнитель</label>
+                    <input asp-for="@Model.RealisedBy"
+                           placeholder="Введите имя исполнителя" />
+                    <span asp-validation-for="@Model.RealisedBy" class="text-danger"></span>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="@Model.OrderStatus">Статус заявки</label>
+                    <select asp-for="@Model.OrderStatus">
+                        <option value="New">Новая</option>
+                        <option value="InProgress">В работе</option>
+                        <option value="Completed">Выполнено</option>
+                    </select>
+                    <span asp-validation-for="@Model.OrderStatus" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <div class="form-field">
+                <label>Описание заявки</label>
+                <textarea rows="5" readonly>@Model.Description</textarea>
+            </div>
+
+            <div class="form-actions">
+                <a asp-action="GuestOrders" class="cancel-button">
+                    Отмена
+                </a>
+
+                <button type="submit" class="save-button">
+                    Сохранить изменения
+                </button>
+            </div>
+        </form>
+
+
+    </section>
+</main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

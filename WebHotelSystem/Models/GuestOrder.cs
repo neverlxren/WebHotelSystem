@@ -5,6 +5,8 @@ namespace WebHotelSystem.Models;
 
 public partial class GuestOrder
 {
+    
+    // editable: orderstatus; realisedBy; UpdatedAt*
     public int Id { get; set; }
 
     public short? AppNumb { get; set; }

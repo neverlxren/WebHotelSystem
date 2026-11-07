@@ -92,7 +92,7 @@ public class GuestOrderController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Details(int? id)
+    public async Task<IActionResult> GuestOrderDetails(int? id)
     {
         var order = await _dbContext.GuestOrders
             .FirstOrDefaultAsync(o => o.Id == id);
@@ -104,5 +104,17 @@ public class GuestOrderController : Controller
 
         return View(order);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateGuestOrder(GuestOrder guestOrder)
+    {
+        guestOrder.UpdatedAt = DateTime.Now;
+        _dbContext.GuestOrders.Update(guestOrder);
+        
+       await  _dbContext.SaveChangesAsync();
+
+       return RedirectToAction(nameof(GuestOrders));
+    }
 }
- 
+
+    

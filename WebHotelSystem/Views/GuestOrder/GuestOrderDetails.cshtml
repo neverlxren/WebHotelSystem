@@ -32,14 +32,29 @@
     <section class="apartment-edit-layout">
 
         <form asp-action="UpdateGuestOrder"
-              asp-route-id="@Model.Id"
               method="post"
               class="apartment-edit-form">
 
             @Html.AntiForgeryToken()
 
             <input asp-for="Id" type="hidden" />
+            <input asp-for="AppNumbNavigation" type="hidden"></input>
+            <input asp-for="GuestNavigation" type="hidden"></input>
+    
 
+            <div class="form-field">
+                <label>Детали гостя</label>
+                <textarea rows="5" readonly>@Model.Guest</textarea>
+            </div>
+            
+            <div classs="form-field">
+                
+                <label>Заявка создана:</label>
+                <textarea rows = "5" readonly>@Model.CreatedAt</textarea>
+                <label>Последние изменения заявки:</label>
+                <textarea rows = "5" readonly>@Model.UpdatedAt</textarea>
+            </div>  
+            
             <div class="form-title">
                 <span class="form-number">01</span>
 
@@ -52,12 +67,6 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="apartment-form-grid">
-
-                <div class="form-field">
-                    <label>Гость</label>
-                    <input value="@Model.Guest" readonly />
-                </div>
-
                 <div class="form-field">
                     <label>Номер</label>
                     <input value="@Model.AppNumb" readonly />

@@ -107,6 +107,8 @@
                             <span>
                                 @order.CreatedAt?.ToString("dd.MM.yyyy HH:mm")
                             </span>
+                            
+                            <a asp-action="GuestOrderDetails" asp-route-id=@order.Id>Детали заявки</a>
                         </div>
                     </article>
                 }

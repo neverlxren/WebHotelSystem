@@ -1,0 +1,74 @@
+@model WebHotelSystem.ViewModels.EditWifiViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>editwifi</h2>
+
+<main class="wifi-page">
+    <div class="wifi-container">
+        <div class="wifi-eyebrow">Настройки отеля</div>
+        <h1 class="wifi-title">Изменить Wi-Fi</h1>
+        <p class="wifi-subtitle">
+            Обновите данные сети для выбранного номера.
+        </p>
+
+        <section class="wifi-card">
+            <div class="wifi-room">
+                <span class="wifi-room-dot"></span>
+                Номер @ViewBag.AppNumb </div>
+            
+                
+                
+                
+            <form asp-action="EditWifi"
+                  method="post"
+                  class="apartment-edit-form">
+                
+
+                <div class="form-title">
+                    <span class="form-number">01</span>
+                    <div>
+                        <h2>Данные сети</h2>
+                        <p>Сеть будет привязана к выбранному номеру</p>
+                    </div>
+                </div>
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="apartment-form-grid">
+
+                    <div class="form-field">
+                        <label asp-for="WifiName">Название сети</label>
+                        <input asp-for="WifiName"
+                               placeholder="Например, Hotel-307"/>
+                        <span asp-validation-for="WifiName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-field">
+                        <label asp-for="WifiPassword">Пароль</label>
+                        <input asp-for="WifiPassword"
+                               type="password"
+                               placeholder="Введите пароль Wi-Fi"
+                               autocomplete="new-password"/>
+                        <span asp-validation-for="WifiPassword" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <a asp-action="WifiSettings" class="cancel-button">
+                        Отмена
+                    </a>
+
+                    <button type="submit" class="save-button">
+                        Добавить сеть
+                    </button>
+                </div>
+            </form>
+            
+        </section>
+    </div>
+</main>

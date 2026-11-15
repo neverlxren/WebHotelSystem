@@ -72,4 +72,32 @@ public class HotelWifiSettingsController : Controller
             })
             .ToListAsync();
     }
+
+    [HttpGet]
+    public async Task<IActionResult> EditWifi(int id)
+    {
+        var settings = await  _dbContext.HotelWifiSettings.FindAsync(id);
+
+        var form = new EditWifiViewModel() { Id = id ,WifiName = settings.WifiName, WifiPassword = settings.WifiPassword };
+        return View(form);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditWifi(EditWifiViewModel editWifi)
+    {
+        var settings = await  _dbContext.HotelWifiSettings.FindAsync(editWifi.Id);
+        
+        if (settings is null) return View();
+
+        settings.WifiName = editWifi.WifiName ?? settings.WifiName; // старое = новое ЛИБО остается таким же, если ничего не меняется
+        settings.WifiPassword = editWifi.WifiPassword ?? settings.WifiPassword;
+
+         await _dbContext.SaveChangesAsync();
+
+         return RedirectToAction(nameof(WifiSettings));
+
+
+
+
+    }
 }

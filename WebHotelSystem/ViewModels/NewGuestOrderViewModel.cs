@@ -9,7 +9,7 @@ public class NewGuestOrderViewModel
    [MaxLength(128)]
    public string ClientName { get; set; } = null!;
 
-   [Required] public short? AppNumb { get; set; } = null!;
+   [Required] public int AppNumb { get; set; }
 
    [Required]
    [MinLength(2, ErrorMessage = "write more description of problem")]

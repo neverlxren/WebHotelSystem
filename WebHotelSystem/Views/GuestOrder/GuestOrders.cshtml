@@ -91,7 +91,7 @@
                         <h3>@order.GuestNavigation?.ClientName</h3>
 
                         <p class="apartment-number">
-                            Номер: @(order.AppNumb ?? 0)
+                            Номер: @(order.AppNumb)
                         </p>
 
                         <p class="order-description">
@@ -105,7 +105,7 @@
                             </span>
 
                             <span>
-                                @order.CreatedAt?.ToString("dd.MM.yyyy HH:mm")
+                                @order.CreatedAt.ToString("dd.MM.yyyy HH:mm")
                             </span>
                             
                             <a asp-action="GuestOrderDetails" asp-route-id=@order.Id>Детали заявки</a>

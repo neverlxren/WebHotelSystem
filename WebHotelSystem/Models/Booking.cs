@@ -7,15 +7,19 @@ public partial class Booking
 {
     public int Id { get; set; }
 
-    public int? AppBookId { get; set; }
+    public int AppNumb { get; set; }
 
-    public string Status { get; set; } = null!;
+    public int? GuestId { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public short AmountNights { get; set; }
 
-    public DateTime? UpdatedAt { get; set; }
+    public DateTime BookingStart { get; set; }
 
-    public string? Description { get; set; }
+    public DateTime BookingEnd { get; set; }
 
-    public virtual Apartment? AppBook { get; set; }
+    public DateTime UpdatedAt { get; set; }
+
+    public virtual Apartment AppNumbNavigation { get; set; } = null!;
+
+    public virtual Client? Guest { get; set; }
 }

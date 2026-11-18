@@ -5,25 +5,23 @@ namespace WebHotelSystem.Models;
 
 public partial class GuestOrder
 {
-    
-    // editable: orderstatus; realisedBy; UpdatedAt*
     public int Id { get; set; }
 
-    public short? AppNumb { get; set; }
+    public int AppNumb { get; set; }
 
-    public int? Guest { get; set; }
-
-    public string OrderStatus { get; set; } = null!;
+    public DateTime CreatedAt { get; set; }
 
     public string Description { get; set; } = null!;
 
+    public int Guest { get; set; }
+
+    public string OrderStatus { get; set; } = null!;
+
     public string? RealisedBy { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 
-    public DateTime? UpdatedAt { get; set; }
+    public virtual Apartment AppNumbNavigation { get; set; } = null!;
 
-    public virtual Apartment? AppNumbNavigation { get; set; }
-
-    public virtual Client? GuestNavigation { get; set; }
+    public virtual Client GuestNavigation { get; set; } = null!;
 }

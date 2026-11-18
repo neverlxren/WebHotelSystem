@@ -36,7 +36,7 @@ public class HotelWifiSettingsController : Controller
 
         return View(model); 
     }
-    
+     
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> AddWifi(HotelWifiSettingsViewModel model)

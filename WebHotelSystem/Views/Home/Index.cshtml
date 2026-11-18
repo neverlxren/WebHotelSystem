@@ -1,8 +1,50 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+
+<link rel="stylesheet" href="/css/site.css" />
+
+
+@{
+    ViewData["Title"] = "Главная";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+
+<main class="welcome-page">
+    <section class="welcome-content">
+        <div class="welcome-eyebrow">WebHotelSystem</div>
+        <h1>Добро пожаловать</h1>
+        <p class="welcome-subtitle">
+            Выберите раздел, чтобы продолжить работу
+        </p>
+
+        <div class="role-grid">
+            <a class="role-card role-admin"
+               asp-controller="Apartment"
+               asp-action="ApartmentList">
+                <span class="role-icon">⌂</span>
+                <span class="role-label">Рабочее пространство</span>
+                <span class="role-title">Администрация</span>
+                <span class="role-description">
+                    Номера, гости, заказы и настройки отеля
+                </span>
+                <span class="role-link">Перейти <span aria-hidden="true">→</span></span>
+            </a>
+
+            <a class="role-card role-cleaning"
+               asp-controller="Cleaning"
+               asp-action="Index">
+                <span class="role-icon">✦</span>
+                <span class="role-label">Рабочее пространство</span>
+                <span class="role-title">Клининг</span>
+                <span class="role-description">
+                    Статусы уборки и список номеров
+                </span>
+                <span class="role-link">Перейти <span aria-hidden="true">→</span></span>
+            </a>
+        </div>
+
+        <div class="welcome-footer">
+            Управление отелем — в одном месте
+        </div>
+    </section>
+</main>

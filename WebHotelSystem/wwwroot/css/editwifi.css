@@ -1,19 +1,19 @@
 .wifi-page {
-    min-height: calc(100vh - 70px);
+    min-height: calc(100vh - 72px);
     padding: 64px 24px;
     background: #f5f7f5;
     color: #202127;
 }
 
 .wifi-container {
-    width: min(100%, 900px);
+    width: min(100%, 1160px);
     margin: 0 auto;
 }
 
 .wifi-eyebrow {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     color: #849987;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: .08em;
     text-transform: uppercase;
@@ -22,59 +22,96 @@
 .wifi-title {
     margin: 0;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(38px, 6vw, 58px);
+    font-size: clamp(42px, 6vw, 68px);
     font-weight: 700;
     letter-spacing: -.04em;
 }
 
 .wifi-subtitle {
-    margin-top: 12px;
+    margin: 12px 0 38px;
     color: #818590;
-    font-size: 17px;
+    font-size: 19px;
 }
 
 .wifi-card {
-    margin-top: 36px;
-    padding: clamp(24px, 5vw, 44px);
+    padding: clamp(28px, 5vw, 56px);
     border: 1px solid #e6e9e6;
-    border-radius: 28px;
+    border-radius: 30px;
     background: #fff;
-    box-shadow: 0 12px 34px rgb(32 33 39 / 5%);
+    box-shadow: 0 16px 42px rgb(32 33 39 / 5%);
 }
 
 .wifi-room {
     display: inline-flex;
     align-items: center;
-    gap: 9px;
-    margin-bottom: 28px;
-    padding: 10px 14px;
+    gap: 10px;
+    margin-bottom: 42px;
+    padding: 14px 20px;
     border-radius: 999px;
-    background: #f2f6f2;
-    color: #4e7758;
+    background: #f1f6f2;
+    color: #50795b;
+    font-size: 18px;
     font-weight: 600;
 }
 
 .wifi-room-dot {
-    width: 9px;
-    height: 9px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: #39bd75;
 }
 
-.wifi-field {
-    margin-bottom: 22px;
+.apartment-edit-form {
+    max-width: 760px;
 }
 
-.wifi-field label {
+.form-title {
+    display: flex;
+    align-items: flex-start;
+    gap: 22px;
+    margin-bottom: 30px;
+}
+
+.form-number {
+    padding-top: 5px;
+    color: #858a93;
+    font-size: 17px;
+}
+
+.form-title h2 {
+    margin: 0;
+    color: #202127;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(30px, 4vw, 42px);
+    font-weight: 700;
+}
+
+.form-title p {
+    margin: 8px 0 0;
+    color: #818590;
+    font-size: 16px;
+}
+
+.apartment-form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+}
+
+.form-field label {
     display: block;
     margin-bottom: 9px;
+    color: #383a40;
+    font-size: 15px;
     font-weight: 600;
 }
 
-.wifi-field input {
+.form-field input {
+    display: block;
     width: 100%;
-    min-height: 52px;
-    padding: 12px 15px;
+    min-height: 54px;
+    box-sizing: border-box;
+    padding: 13px 16px;
     border: 1px solid #dfe3df;
     border-radius: 12px;
     background: #fff;
@@ -84,69 +121,84 @@
     transition: border-color .2s, box-shadow .2s;
 }
 
-.wifi-field input:focus {
+.form-field input:focus {
     border-color: #78977e;
     box-shadow: 0 0 0 4px rgb(120 151 126 / 14%);
 }
 
-.wifi-hint {
-    display: block;
-    margin-top: 8px;
-    color: #858a93;
-    font-size: 13px;
+.form-field input::placeholder {
+    color: #a0a4aa;
 }
 
-.wifi-validation {
+.text-danger {
     display: block;
     margin-top: 7px;
     color: #c64747;
     font-size: 13px;
 }
 
-.wifi-actions {
+.form-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 32px;
+    margin-top: 30px;
 }
 
-.wifi-button {
+.cancel-button,
+.save-button {
     display: inline-flex;
     min-height: 50px;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
     padding: 0 22px;
-    border: 0;
     border-radius: 13px;
     font: inherit;
     font-weight: 600;
     text-decoration: none;
     cursor: pointer;
-    transition: transform .2s, background .2s;
+    transition: background .2s, transform .2s;
 }
 
-.wifi-button:hover {
-    transform: translateY(-1px);
-}
-
-.wifi-button-primary {
-    background: #202127;
-    color: #fff;
-}
-
-.wifi-button-primary:hover {
-    background: #34363e;
-    color: #fff;
-}
-
-.wifi-button-secondary {
+.cancel-button {
     border: 1px solid #e1e4e1;
     background: #fff;
     color: #555b64;
 }
 
-.wifi-button-secondary:hover {
+.cancel-button:hover {
     background: #f7f8f7;
     color: #202127;
-
 }
+
+.save-button {
+    border: 0;
+    background: #202127;
+    color: #fff;
+}
+
+.save-button:hover {
+    transform: translateY(-1px);
+    background: #34363e;
+}
+
+@media (max-width: 600px) {
+    .wifi-page {
+        padding: 36px 16px;
+    }
+
+    .wifi-card {
+        border-radius: 22px;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .cancel-button,
+    .save-button {
+        width: 100%;
+    }
+}
+
+
